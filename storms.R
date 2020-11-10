@@ -1,3 +1,4 @@
+library(knitr)
 library(dplyr)
 library(lubridate)
 library(ggplot2)
@@ -19,8 +20,6 @@ df0<-df0 %>% filter(year(BGN_DATE)>1996)
 # DATA ANALYSIS
 # 1. Across the United States, which types of events (as indicated in the EVTYPE variable) 
 # are most harmful with respect to population health?
-# Check for na's
-sum(is.na(df1))
 # Number of buckets to plot, N
 N = 25
 # Produce dataframe for Injuries
@@ -52,6 +51,8 @@ ggplot(df1, aes(x=df1$EVTYPE)) +
         geom_path(aes(y=df1$cumulative, group=1), colour="slateblue1", lty=1, size=0.9) +
         theme(axis.text.x = element_text(angle=90, vjust=0.6, hjust=1)) +
         labs(title = "Injuries", x = 'Event Type', y = 'Count', subtitle = "Pareto Plot 1")
+#dev.copy(png,file="plot1.png")
+#dev.off()
 # Plot 2 - Major incidents of fatalities        
 ggplot(df2, aes(x=df2$EVTYPE)) +
         scale_y_continuous(name = "Fatalities by Event Type", 
@@ -62,6 +63,8 @@ ggplot(df2, aes(x=df2$EVTYPE)) +
         geom_path(aes(y=df2$cumulative, group=1), colour="slateblue1", lty=1, size=0.9) +
         theme(axis.text.x = element_text(angle=90, vjust=0.6, hjust=1)) +
         labs(title = "Fatalities", x = 'Event Type', y = 'Count', subtitle = "Pareto Plot 2")       
+#dev.copy(png,file="plot2.png")
+#dev.off()
 # 2. Across the United States, which types of events have the greatest economic consequences?
 # Convert property damage exponent symbols to numeric orders of magnitude
 df3 <- df0
@@ -110,7 +113,8 @@ ggplot(df4, aes(x=df4$EVTYPE)) +
         geom_path(aes(y=df4$cumulative, group=1), colour="slateblue1", lty=1, size=0.9) +
         theme(axis.text.x = element_text(angle=90, vjust=0.6, hjust=1)) +
         labs(title = "Economic Damage", x = 'Event Type', y = 'Damage by Event Type, B$', subtitle = "Pareto Plot 3")
-
+#dev.copy(png,file="plot3.png")
+#dev.off()
 
 
 
